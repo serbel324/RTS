@@ -24,7 +24,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 # link SFML
-# set(SFML_STATIC_LIBRARIES TRUE)
+set(SFML_STATIC_LIBRARIES TRUE)
 target_link_libraries(${PROJECT_NAME}
     sfml-graphics
     sfml-window
