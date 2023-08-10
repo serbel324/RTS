@@ -1,7 +1,7 @@
 #pragma once
 #include <library/vec2.h>
 #include <core/color.h>
-#include <core/Camera.h>
+#include <core/camera.h>
 
 #include <memory>
 #include <string>
