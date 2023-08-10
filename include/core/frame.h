@@ -4,7 +4,7 @@
 
 #include <core/graphics.h>
 #include <core/input.h>
-#include <library/Vec2.h>
+#include <library/vec2.h>
 
 #include <SFML/Graphics.hpp>
 
@@ -24,6 +24,8 @@ public:
     virtual bool Update(float elapsedMs);
     virtual void Render();
     virtual void PollEvents();
+
+    virtual ~Frame() = default;
 
 protected:
     Graphics* Gr();
