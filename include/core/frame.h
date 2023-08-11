@@ -31,14 +31,15 @@ protected:
     Graphics* Gr();
     InputController* Ic();
 
-private:
     Settings _settings;
     std::shared_ptr<sf::RenderWindow> _window;
 
+    bool _isRunning;
+
+private:
     std::unique_ptr<Graphics> _graphics;
     std::unique_ptr<InputController> _inputController;
     
-    bool _isRunning;
 };
 
 } // namespace REngine

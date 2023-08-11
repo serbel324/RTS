@@ -7,10 +7,9 @@ void InputController::HandleEvent(sf::Event event) {
     {
     case sf::Event::KeyPressed:
         KeyPressed(event.key);
-        KeyPressed(event.key);
         break;
     case sf::Event::KeyReleased:
-        KeyPressed(event.key);
+        KeyReleased(event.key);
         break;
     case sf::Event::MouseButtonPressed:
         MousePressed(event.mouseButton);
@@ -28,48 +27,41 @@ void InputController::HandleEvent(sf::Event event) {
 
 void InputController::KeyPressed(sf::Event::KeyEvent& event)
 {
+#define SET_KEY(code, var)      \
+    case sf::Keyboard::code:    \
+        var = true;             \
+        break;
+
     switch (event.code) {
-    case sf::Keyboard::W:
-        w = true;
-        break;
-    case sf::Keyboard::A:
-        a = true;
-        break;
-    case sf::Keyboard::S:
-        s = true;
-        break;
-    case sf::Keyboard::D:
-        d = true;
-        break;
-    case sf::Keyboard::Space:
-        space = true;
-        break;
+    SET_KEY(W, w)
+    SET_KEY(A, a)
+    SET_KEY(S, s)
+    SET_KEY(D, d)
+    SET_KEY(Space, space)
     default:
         break;
     }
+
+#undef SET_KEY 
 }
 
 void InputController::KeyReleased(sf::Event::KeyEvent& event)
 {
+#define RESET_KEY(code, var)    \
+    case sf::Keyboard::code:    \
+        var = false;            \
+        break;
+
     switch (event.code) {
-    case sf::Keyboard::W:
-        w = false;
-        break;
-    case sf::Keyboard::A:
-        a = false;
-        break;
-    case sf::Keyboard::S:
-        s = false;
-        break;
-    case sf::Keyboard::D:
-        d = false;
-        break;
-    case sf::Keyboard::Space:
-        space = false;
-        break;
+    RESET_KEY(W, w)
+    RESET_KEY(A, a)
+    RESET_KEY(S, s)
+    RESET_KEY(D, d)
+    RESET_KEY(Space, space)
     default:
         break;
     }
+#undef RESET_KEY 
 }
 
 void InputController::MouseMoved(sf::Event::MouseMoveEvent& event)
