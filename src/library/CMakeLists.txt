@@ -3,19 +3,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(INCPATH ${PROJECT_SOURCE_DIR}/include)
 
-project(App)
+project(Library)
 
 set(SOURCES
-    main.cpp)
+    ext_math.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_library(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories( ${PROJECT_NAME}
     PUBLIC ${INCPATH}
-)
-
-target_link_libraries(${PROJECT_NAME}
-    Driver
-    Core
-    Library
 )

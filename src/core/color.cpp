@@ -1,5 +1,5 @@
 #include <core/color.h>
-#include <library/random.h>
+#include <library/ext_math.h>
 
 #include <algorithm>
 
@@ -47,9 +47,9 @@ Color Color::operator*(const float right) const
 Color Color::GetRandom()
 {
 	return Color(
-		RRandom::GetRandomInt(0, 255), 
-		RRandom::GetRandomInt(0, 255), 
-		RRandom::GetRandomInt(0, 255)
+		ExtMath::RandomInt(0, 255), 
+		ExtMath::RandomInt(0, 255), 
+		ExtMath::RandomInt(0, 255)
 	);
 }
 
