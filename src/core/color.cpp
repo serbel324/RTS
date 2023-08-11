@@ -21,36 +21,36 @@ Color::Color(int v)
 
 Color Color::operator+(const Color& right) const
 {
-	return Color(r + right.r, g + right.g, b + right.b, a);
+    return Color(r + right.r, g + right.g, b + right.b, a);
 }
 
 Color Color::operator+(const int right) const
 {
-	return Color(r + right, g + right, b + right, a);
+    return Color(r + right, g + right, b + right, a);
 }
 
 Color Color::operator-(const Color& right) const
 {
-	return Color(r - right.r, g - right.g, b - right.b, a);
+    return Color(r - right.r, g - right.g, b - right.b, a);
 }
 
 Color Color::operator-(const int right) const
 {
-	return Color(r - right, g - right, b - right, a);
+    return Color(r - right, g - right, b - right, a);
 }
 
 Color Color::operator*(const float right) const
 {
-	return Color(r * right, g * right, b * right, a);
+    return Color(r * right, g * right, b * right, a);
 }
 
 Color Color::GetRandom()
 {
-	return Color(
-		ExtMath::RandomInt(0, 255), 
-		ExtMath::RandomInt(0, 255), 
-		ExtMath::RandomInt(0, 255)
-	);
+    return Color(
+        ExtMath::RandomInt(0, 255), 
+        ExtMath::RandomInt(0, 255), 
+        ExtMath::RandomInt(0, 255)
+    );
 }
 
 const Color Color::RED = Color(255, 0, 0);

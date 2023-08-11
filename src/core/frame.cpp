@@ -6,8 +6,8 @@ Frame::Frame(Frame::Settings settings)
     : _settings(std::move(settings))
     , _window(std::make_shared<sf::RenderWindow>(
         sf::VideoMode(_settings.screenDimensions.x, _settings.screenDimensions.y), 
-		_settings.name, 
-		sf::Style::Close
+        _settings.name, 
+        sf::Style::Close
     ))
     , _graphics(std::make_unique<Graphics>(_window, _settings.screenDimensions))
     , _inputController(std::make_unique<InputController>())
@@ -36,12 +36,12 @@ bool Frame::Update(float) {
 void Frame::PollEvents() {
     sf::Event e;
 
-	while (_window->pollEvent(e)) {
-		switch (e.type) {
-		case sf::Event::Closed:
-			_window->close();
+    while (_window->pollEvent(e)) {
+        switch (e.type) {
+        case sf::Event::Closed:
+            _window->close();
             _isRunning = false;
-			break;
+            break;
 
         default:
             Ic()->HandleEvent(e);
