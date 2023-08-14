@@ -54,11 +54,11 @@ struct Vec2
     template <typename T1>
     Vec2 operator/(T1 r) const;
 
-    F magnitude();
-    Vec2 normalized();
+    F magnitude() const;
+    Vec2 normalized() const;
 
     template <typename F1>
-    Vec2 rotated(F1 a);
+    Vec2 rotated(F1 a) const;
 
     T x;
     T y;
@@ -216,13 +216,13 @@ Vec2<T1, F1> Vec2<T1, F1>::operator-(Vec2<T2, F2> r) const
 }
 
 template<typename T, typename F>
-F Vec2<T, F>::magnitude()
+F Vec2<T, F>::magnitude() const
 {
     return std::sqrt(x * x + y * y);
 }
 
 template<typename T, typename F>
-Vec2<T, F> Vec2<T, F>::normalized()
+Vec2<T, F> Vec2<T, F>::normalized() const
 {
     F mag = magnitude();
     if (mag < EPS)
@@ -234,7 +234,7 @@ Vec2<T, F> Vec2<T, F>::normalized()
 
 template<typename T, typename F>
 template<typename F1>
-inline Vec2<T, F> Vec2<T, F>::rotated(F1 a)
+inline Vec2<T, F> Vec2<T, F>::rotated(F1 a) const
 {
     return Vec2(
         x * std::cos(a) - y * std::sin(a),
