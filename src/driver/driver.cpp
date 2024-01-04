@@ -1,23 +1,35 @@
 #include <driver/driver.h>
+
 #include <cassert>
 #include <chrono>
 #include <ctime>
 #include <iostream>
+#include <thread>
+#include <utility>
 
 namespace REngine {
 
-Driver::Driver(std::unique_ptr<Frame>&& mainFrame, Settings settings)
-    : _mainFrame(std::move(mainFrame))
-    , _settings(settings)
+static Driver::UPtr __driverKing;
+
+void Driver::Promote(Driver::UPtr&& newKing)
 {
-    assert(_mainFrame);
+    __driverKing.reset(newKing.release());
 }
 
-void Driver::Initialize() {
-    _mainFrame->Initialize();
+Driver* Driver::King() {
+    return __driverKing.get();
 }
 
-void Driver::Run() {
+
+SingleFrameDriver::SingleFrameDriver(Frame::UPtr&& frame, Settings settings)
+    : _frame(std::forward<Frame::UPtr>(frame))
+    , _settings(settings)
+{}
+
+void SingleFrameDriver::Initialize() {
+}
+
+void SingleFrameDriver::Run() {
     using SystemClock = std::chrono::system_clock;
     using Timestamp = std::chrono::time_point<SystemClock>;
     Timestamp startTime = SystemClock::now();
@@ -26,14 +38,17 @@ void Driver::Run() {
         Timestamp currentTime = SystemClock::now();
         int64_t elapsedUs = std::chrono::duration_cast<std::chrono::microseconds>(currentTime - startTime).count();
         float elapsedMs = 0.001 * elapsedUs;
-        startTime = currentTime;
+        if (_settings.minimumUpdateDelayMs > elapsedMs) {
+            std::this_thread::sleep_for(std::chrono::milliseconds((int)(_settings.minimumUpdateDelayMs - elapsedMs)));
+            elapsedMs = _settings.minimumUpdateDelayMs;
+        }
+        startTime = SystemClock::now();
 
-        if (!_mainFrame->Update(elapsedMs)) {
+        if (!_frame->Update(elapsedMs)) {
             break;
         }
-        _mainFrame->Render();
+        _frame->Render();
     }
 }
-
 
 } // namespace REngine

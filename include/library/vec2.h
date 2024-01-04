@@ -45,6 +45,11 @@ struct Vec2
     Vec2& operator/=(T1 r);
 
     template <typename T1, typename F1>
+    Vec2& operator*=(Vec2<T1, F1> r);
+    template <typename T1, typename F1>
+    Vec2& operator/=(Vec2<T1, F1> r);
+
+    template <typename T1, typename F1>
     Vec2 operator+(Vec2<T1, F1> r) const;
     template <typename T1, typename F1>
     Vec2 operator-(Vec2<T1, F1> r) const;
@@ -53,6 +58,11 @@ struct Vec2
     Vec2 operator*(T1 r) const;
     template <typename T1>
     Vec2 operator/(T1 r) const;
+
+    template <typename T1, typename F1>
+    Vec2 operator*(Vec2<T1, F1> r) const;
+    template <typename T1, typename F1>
+    Vec2 operator/(Vec2<T1, F1> r) const;
 
     F magnitude() const;
     Vec2 normalized() const;
@@ -201,6 +211,24 @@ Vec2<T1, F1>& Vec2<T1, F1>::operator-=(Vec2<T2, F2> r)
 
 template<typename T1, typename F1>
 template<typename T2, typename F2>
+Vec2<T1, F1>& Vec2<T1, F1>::operator*=(Vec2<T2, F2> r)
+{
+    x *= r.x;
+    y *= r.y;
+    return *this;
+}
+
+template<typename T1, typename F1>
+template<typename T2, typename F2>
+Vec2<T1, F1>& Vec2<T1, F1>::operator/=(Vec2<T2, F2> r)
+{
+    x /= r.x;
+    y /= r.y;
+    return *this;
+}
+
+template<typename T1, typename F1>
+template<typename T2, typename F2>
 Vec2<T1, F1> Vec2<T1, F1>::operator+(Vec2<T2, F2> r) const
 {
     Vec2 v(*this);
@@ -213,6 +241,22 @@ Vec2<T1, F1> Vec2<T1, F1>::operator-(Vec2<T2, F2> r) const
 {
     Vec2 v(*this);
     return v -= r;
+}
+
+template<typename T1, typename F1>
+template<typename T2, typename F2>
+Vec2<T1, F1> Vec2<T1, F1>::operator*(Vec2<T2, F2> r) const
+{
+    Vec2 v(*this);
+    return v *= r;
+}
+
+template<typename T1, typename F1>
+template<typename T2, typename F2>
+Vec2<T1, F1> Vec2<T1, F1>::operator/(Vec2<T2, F2> r) const
+{
+    Vec2 v(*this);
+    return v /= r;
 }
 
 template<typename T, typename F>

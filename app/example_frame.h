@@ -7,10 +7,13 @@
 class ExampleFrame : public REngine::Frame {
 public:
     ExampleFrame()
-        : Frame(REngine::Frame::Settings{
-            .name = "Example App",
-            .screenDimensions = {800, 800},
-        })
+        : Frame(
+            Frame::Settings{
+                .id = "MainFrame",
+                .screenSize = {800, 800},
+            },
+            nullptr,
+            REngine::MakeGenericWindow({800, 800}, "Demo app"))
     {}
 
     void Initialize() override {

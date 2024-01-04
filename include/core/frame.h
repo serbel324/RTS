@@ -9,16 +9,25 @@
 #include <SFML/Graphics.hpp>
 
 namespace REngine {
+std::shared_ptr<sf::RenderWindow> MakeGenericWindow(Vec2i dimensions, std::string name = "App") {
+    return std::make_shared<sf::RenderWindow>(sf::VideoMode(dimensions.x, dimensions.y), name, sf::Style::Close);
+}
 
 class Frame {
 public:
+    using UPtr = std::unique_ptr<Frame>;
+    using SPtr = std::shared_ptr<Frame>;
+
+    using Id = std::string;
+
+public:
     struct Settings {
-        std::string name;
-        Vec2<size_t> screenDimensions;
+        Id id;
+        Vec2<size_t> screenSize;
     };
 
 public:
-    Frame(Settings settings);
+    Frame(Settings settings, Frame* parent = nullptr, std::shared_ptr<sf::RenderWindow> window = {});
 
     virtual void Initialize() = 0;
     virtual bool Update(float elapsedMs);
@@ -31,15 +40,18 @@ protected:
     Graphics* Gr();
     InputController* Ic();
 
-    Settings _settings;
+    bool IsRunning() const;
+
+protected:
+    const Settings _settings;
+    Frame* _parent;
     std::shared_ptr<sf::RenderWindow> _window;
 
-    bool _isRunning;
-
 private:
-    std::unique_ptr<Graphics> _graphics;
-    std::unique_ptr<InputController> _inputController;
-    
+    std::shared_ptr<Graphics> _graphics;
+    std::shared_ptr<InputController> _inputController;
+
+    bool _isRunning;
 };
 
 } // namespace REngine

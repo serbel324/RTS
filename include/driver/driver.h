@@ -4,27 +4,45 @@
 
 #include <core/frame.h>
 #include <memory>
+#include <deque>
 
 namespace REngine {
 
 class Driver {
+public:
+    using UPtr = std::unique_ptr<Driver>;
 
 public:
+    static Driver* King();
+    static void Promote(UPtr&& newKing);
+
+    virtual ~Driver() = default;
+
+    virtual void Initialize() = 0;
+    virtual void Run() = 0;
+
+    template <class Derived>
+    Derived* Cast() {
+        return dynamic_cast<Derived*>(this);
+    }
+};
+
+
+class SingleFrameDriver : public Driver {
+public:
     struct Settings {
-        std::string mainFrameConfigPath;
+        float minimumUpdateDelayMs;
     };
 
 public:
+    SingleFrameDriver(Frame::UPtr&& frame, Settings settings = {});
 
-    Driver(std::unique_ptr<Frame>&& mainFrame, Settings settings = {});
-
-    void Initialize();
-    void Run();
+    void Initialize() override;
+    void Run() override;
 
 private:
-    Settings _settings;
-    std::unique_ptr<Frame> _mainFrame;
-
+    Frame::UPtr _frame;
+    const Settings _settings;
 };
 
 } // namespace REngine
