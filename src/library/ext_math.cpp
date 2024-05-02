@@ -1,8 +1,12 @@
+#include <cstdlib>
+#include <random>
+#include <cmath>
+#include <ctime>
+#include <climits>
+
 #include <library/ext_math.h>
 
 namespace ExtMath {
-
-const long double PI = 3.14159265359;
 
 double ToRadian(double a)
 {
@@ -70,6 +74,38 @@ int RandomInt(int a, int b)
     unsigned long long base = randomizer(); /* in range [0; ULLONG_MAX) */
     long long normilized = base % (b - a);
     return normilized + a;
+}
+
+double Interpolate(double a0, double a1, double p)
+{
+	return a1 * p + (1 - p) * a0;
+}
+
+double Smootherstep(double a0, double a1, double p)
+{
+	return (a1 - a0) * ((p * (p * 6.0 - 15.0) + 10.0) * p * p * p) + a0;
+}
+
+double InterpolateSquare(double p00, double p10, double p01, double p11, Vec2<double> p)
+{
+	return Interpolate(
+		Interpolate(p00, p10, p.x),
+		Interpolate(p01, p11, p.x),
+		p.y
+	);
+}
+
+double SmootherstepSquare(double p00, double p10, double p01, double p11, Vec2<double> p)
+{
+	return Smootherstep(
+		Smootherstep(p00, p10, p.x),
+		Smootherstep(p01, p11, p.x),
+		p.y
+	);
+}
+
+double ModuleStepFunction(double x) {
+    return x / (1 + std::abs(x));
 }
 
 }

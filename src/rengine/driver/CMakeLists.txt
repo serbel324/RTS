@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(INCPATH ${PROJECT_SOURCE_DIR}/include)
 
-project(Driver)
+project(REngineDriver)
 
 set(SOURCES
     driver.cpp)
@@ -15,5 +15,5 @@ target_include_directories( ${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-    Core
+    REngineCore
 )

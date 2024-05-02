@@ -1,4 +1,5 @@
 #pragma once
+
 #include <library/vec2.h>
 #include <memory>
 

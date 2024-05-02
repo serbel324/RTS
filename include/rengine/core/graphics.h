@@ -1,7 +1,8 @@
 #pragma once
+
 #include <library/vec2.h>
-#include <core/color.h>
-#include <core/camera.h>
+#include <rengine/core/color.h>
+#include <rengine/core/camera.h>
 
 #include <memory>
 #include <string>

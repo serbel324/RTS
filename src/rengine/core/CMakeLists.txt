@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(INCPATH
     ${PROJECT_SOURCE_DIR}/include)
 
-project(Core)
+project(REngineCore)
 
 set(SOURCES
     camera.cpp

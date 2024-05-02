@@ -10,7 +10,8 @@
 
 namespace ExtMath {
 
-extern const long double PI;
+constexpr long double PI = 3.14159265359;
+constexpr long double EPS = 1e-9;
 
 double ToRadian(double a);
 
@@ -32,4 +33,14 @@ double RandomDouble(double a, double b);
 
 int RandomInt(int a, int b);
 
-} // namespace ExtMath
+double Interpolate(double a0, double a1, double p);
+
+double Smootherstep(double a0, double a1, double p);
+
+double InterpolateSquare(double p00, double p10, double p01, double p11, Vec2<double> p);
+
+double SmootherstepSquare(double p00, double p10, double p01, double p11, Vec2<double> p);
+
+double ModuleStepFunction(double x);
+
+}

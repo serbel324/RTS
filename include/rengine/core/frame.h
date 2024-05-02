@@ -1,9 +1,10 @@
 #pragma once
+
 #include <memory>
 #include <string>
 
-#include <core/graphics.h>
-#include <core/input.h>
+#include <rengine/core/graphics.h>
+#include <rengine/core/input.h>
 #include <library/vec2.h>
 
 #include <SFML/Graphics.hpp>
