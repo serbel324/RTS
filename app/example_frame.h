@@ -16,7 +16,7 @@ public:
             REngine::MakeGenericWindow({800, 800}, "Demo app"))
     {}
 
-    void Initialize() override {
+    virtual void Initialize() override {
         std::cout << "Initialize Frame" << std::endl;
     }
 

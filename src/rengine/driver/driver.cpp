@@ -27,6 +27,7 @@ SingleFrameDriver::SingleFrameDriver(Frame::UPtr&& frame, Settings settings)
 {}
 
 void SingleFrameDriver::Initialize() {
+    _frame->Initialize();
 }
 
 void SingleFrameDriver::Run() {
