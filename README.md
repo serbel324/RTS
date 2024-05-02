@@ -5,7 +5,7 @@ mkdir build
 cmake -B build .
 cd build
 make
-./App 
+./app/App 
 ```
 
 ### Acknowledgements
