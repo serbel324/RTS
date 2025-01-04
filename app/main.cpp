@@ -1,10 +1,8 @@
-#include <rengine/driver/driver.h>
+#include <rengine/core/driver.h>
 #include "example_frame.h"
+#include <memory>
 
 int main() {
-    REngine::Driver::Promote(std::make_unique<REngine::SingleFrameDriver>(
-            std::make_unique<ExampleFrame>(),
-            REngine::SingleFrameDriver::Settings{ .minimumUpdateDelayMs = 0 } ));
-    REngine::Driver::King()->Initialize();
-    REngine::Driver::King()->Run();
+    REngine::Driver driver(std::unique_ptr<REngine::Frame>(new ExampleFrame), {});
+    driver.RunFrame();
 }

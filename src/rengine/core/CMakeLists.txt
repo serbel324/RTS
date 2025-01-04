@@ -9,7 +9,7 @@ project(REngineCore)
 set(SOURCES
     camera.cpp
     color.cpp
-    graphics.cpp
+    driver.cpp
     frame.cpp
     input.cpp)
 

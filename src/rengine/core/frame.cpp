@@ -2,63 +2,41 @@
 
 namespace REngine {
 
-Frame::Frame(Frame::Settings settings, Frame* parent, std::shared_ptr<sf::RenderWindow> window)
+Frame::Frame(Frame::Settings settings)
     : _settings(std::move(settings))
-    , _parent(parent)
-    , _window(window)
-    , _isRunning(true)
-{
-    if (parent) {
-        _graphics = parent->_graphics;
-        _inputController = parent->_inputController;
-        if (!window) {
-            _window = parent->_window;
-        }
-    } else {
-        _graphics = std::make_shared<Graphics>(_window, _settings.screenSize);
-        _inputController = std::make_shared<InputController>();
-    }
-}
+    , _input_controller(new InputController)
+    , _is_running(true)
+{}
 
 Graphics* Frame::Gr() {
     return _graphics.get();
 }
 
 InputController* Frame::Ic() {
-    return _inputController.get();
+    return _input_controller.get();
 }
 
 bool Frame::IsRunning() const {
-    return _isRunning;
+    return _is_running;
 }
 
 void Frame::Render() {
     Gr()->Present();
 }
 
+void Frame::Initialize() {
+    // do nothing
+}
+
 bool Frame::Update(float) {
-    if (_inputController) {
+    if (_input_controller) {
         PollEvents();
     }
-
-    return _isRunning;
+    return _is_running;
 }
 
 void Frame::PollEvents() {
-    sf::Event e;
-
-    while (_window->pollEvent(e)) {
-        switch (e.type) {
-        case sf::Event::Closed:
-            _window->close();
-            _isRunning = false;
-            break;
-
-        default:
-            Ic()->HandleEvent(e);
-            break;
-        }
-    }
+    // do nothing
 }
 
 } // namespace REngine

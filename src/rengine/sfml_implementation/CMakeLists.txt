@@ -3,10 +3,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(INCPATH ${PROJECT_SOURCE_DIR}/include)
 
-project(REngineDriver)
+project(REngineSFMLImplementation)
 
 set(SOURCES
-    driver.cpp)
+    sfml_frame.cpp
+    sfml_graphics.cpp
+    sfml_input.cpp)
 
 add_library(${PROJECT_NAME} ${SOURCES})
 

@@ -1,35 +1,30 @@
-#include <rengine/core/frame.h>
+#include <rengine/sfml_implementation/sfml_frame.h>
 #include <rengine/core/color.h>
 #include <library/vec2.h>
 
 #include <iostream>
 
-class ExampleFrame : public REngine::Frame {
+class ExampleFrame : public REngine::SFMLFrame {
 public:
     ExampleFrame()
-        : Frame(
+        : SFMLFrame(
             Frame::Settings{
-                .id = "MainFrame",
-                .screenSize = {800, 800},
-            },
-            nullptr,
-            REngine::MakeGenericWindow({800, 800}, "Demo app"))
+                .screen_size = {800, 800},
+                .window_name = "MainFrame",
+            })
     {}
 
     virtual void Initialize() override {
         std::cout << "Initialize Frame" << std::endl;
     }
 
-    bool Update(float elapsedMs) override {
-        return Frame::Update(elapsedMs);
+    bool Update(float elapsed_sec) override {
+        return Frame::Update(elapsed_sec);
     }
 
     void Render() override {
-        Gr()->SetFillColor(REngine::Color::WHITE);
-        Gr()->Fill();
-
-        Gr()->SetFillColor(REngine::Color::BLACK);
-        Gr()->DrawCircle(Ic()->mousePosition, 10);
+        Gr()->Fill(REngine::Color::WHITE);
+        Gr()->DrawCircle(Ic()->GetMousePosition(), 10, REngine::Color::BLACK);
         Frame::Render();
     }
 

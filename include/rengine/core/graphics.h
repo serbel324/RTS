@@ -7,8 +7,6 @@
 #include <memory>
 #include <string>
 
-#include <SFML/Graphics.hpp>
-
 namespace REngine
 {
 
@@ -19,65 +17,48 @@ public:
     using SPtr = std::shared_ptr<Graphics>;
 
 public:
-    /* requires RenderWindow pointer, Window's dimensions and Camera object pointer (optionally) */
-    Graphics(std::shared_ptr<sf::RenderWindow> win, Vec2<int> ws);
-    Graphics(std::shared_ptr<sf::RenderWindow> win, Vec2<int> ws, Camera::SPtr cam);
+    /* draw a point with given coordinates */
+    virtual void DrawPoint(Vec2<float> pos, Color color) = 0;
+    virtual void DrawPoint(float x, float y, Color color) = 0;
 
     /* draw a point with given coordinates */
-    void DrawPoint(Vec2<float> pos);
-    void DrawPoint(float x, float y);
-
-    /* draw a point with given coordinates */
-    void DrawCircle(float x, float y, float radius);
-    void DrawCircle(Vec2<float> pos, float radius);
-
-    /* draw broken line fith given verticies */
-    void DrawBrokenLine(std::vector<Vec2<float>> t, Vec2<float> a, float s);
+    virtual void DrawCircle(float x, float y, float radius, Color fill_color) = 0;
+    virtual void DrawCircle(Vec2<float> pos, float radius, Color fill_color) = 0;
 
     /* draw straight line from one point to another */
-    void DrawLine(Vec2<float> v1, Vec2<float> v2);
-    void DrawLine(float x1, float y1, float x2, float y2);
+    virtual void DrawLine(Vec2<float> v1, Vec2<float> v2, Color color) = 0;
+    virtual void DrawLine(float x1, float y1, float x2, float y2, Color color) = 0;
 
     /* draw rectangle with given upper left Angle coordinates, width and height */
-    void DrawRect(float x, float y, float w, float h);
-    void DrawRect(Vec2<float> pos, Vec2<float> size);
+    virtual void DrawRect(float x, float y, float w, float h, Color fill_color) = 0;
+    virtual void DrawRect(Vec2<float> pos, Vec2<float> size, Color fill_color) = 0;
 
     /* draw texture with given upper left Angle coordinates, width, height and rotation (rotation center is in the middle) */
-    void DrawTexture(sf::Texture& tex, float x, float y, float w, float h);
-    void DrawTexture(sf::Texture& tex, Vec2<float> pos, Vec2<float> size);
-    void DrawTexture(sf::Texture& tex, Vec2<float> pos, Vec2<float> size, float a);
-
-    /* Set color for drawing primitives */
-    void SetFillColor(float r, float g, float b, float a);
-    void SetFillColor(Color col);
+    // TODO: textures
+    // virtual void DrawTexture(sf::Texture& tex, float x, float y, float w, float h);
+    // virtual void DrawTexture(sf::Texture& tex, Vec2<float> pos, Vec2<float> size);
+    // virtual void DrawTexture(sf::Texture& tex, Vec2<float> pos, Vec2<float> size, float a);
 
     /* Fill the screen with the same color */
-    void Fill();
+    virtual void Fill(Color fill_color) = 0;
 
     /* Clear all */
-    void Clear();
+    virtual void Clear() = 0;
 
     /* draw text with given coordinates, size and font */
-    void FillText(const std::string& text, float x, float y, float size, sf::Font& font);
-
-    /* auxilary method */
-    void ApplyCamera(Camera::SPtr cam);
+    // TODO: fonts
+    // virtual void FillText(const std::string& text, float x, float y, float size, sf::Font& font);
 
     /* Set camera */
-    void SetCamera(Camera::SPtr cam);
+    virtual void BindCamera(Camera::SPtr cam) = 0;
+
+    virtual void UpdateCameraView() = 0;
 
     /* Set default camera parameters */
-    void SetDefaultCamera();
+    virtual void ResetCamera() = 0;
 
     /* update the window */
-    void Present();
-
-private:
-    std::shared_ptr<sf::RenderWindow> _window;
-    Color _fillColor;
-
-    Camera::SPtr _camera;
-    Vec2<int> _windowSize;
+    virtual void Present() = 0;
 };
 
 }

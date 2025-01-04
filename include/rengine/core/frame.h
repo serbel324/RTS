@@ -5,33 +5,23 @@
 
 #include <rengine/core/graphics.h>
 #include <rengine/core/input.h>
+#include <library/utils.h>
 #include <library/vec2.h>
 
-#include <SFML/Graphics.hpp>
-
 namespace REngine {
-std::shared_ptr<sf::RenderWindow> MakeGenericWindow(Vec2i dimensions, std::string name = "App") {
-    return std::make_shared<sf::RenderWindow>(sf::VideoMode(dimensions.x, dimensions.y), name, sf::Style::Close);
-}
 
-class Frame {
-public:
-    using UPtr = std::unique_ptr<Frame>;
-    using SPtr = std::shared_ptr<Frame>;
-
-    using Id = std::string;
-
+class Frame : public SmartPointerAliases<Frame> {
 public:
     struct Settings {
-        Id id;
-        Vec2<size_t> screenSize;
+        Vec2<uint32_t> screen_size = Vec2<uint32_t>{1600, 900};
+        std::string window_name = "Frame";
     };
 
 public:
-    Frame(Settings settings, Frame* parent = nullptr, std::shared_ptr<sf::RenderWindow> window = {});
+    Frame(Settings settings);
 
-    virtual void Initialize() = 0;
-    virtual bool Update(float elapsedMs);
+    virtual void Initialize();
+    virtual bool Update(float elapsed_sec);
     virtual void Render();
     virtual void PollEvents();
 
@@ -45,14 +35,12 @@ protected:
 
 protected:
     const Settings _settings;
-    Frame* _parent;
-    std::shared_ptr<sf::RenderWindow> _window;
 
-private:
+protected:
     std::shared_ptr<Graphics> _graphics;
-    std::shared_ptr<InputController> _inputController;
+    std::shared_ptr<InputController> _input_controller;
 
-    bool _isRunning;
+    bool _is_running;
 };
 
 } // namespace REngine

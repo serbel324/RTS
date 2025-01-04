@@ -12,12 +12,21 @@ public:
 
 public:
     Camera();
-    Camera(float x, float y, float a = 0, float s = 1);
-    Camera(Vec2<float> pos, float a = 0, float s = 1);
+    Camera(float x, float y, float angle_rad = 0, Vec2f scale = Vec2f{1, 1});
+    Camera(Vec2f pos, float angle_rad = 0, Vec2f scale = Vec2f{1, 1});
 
-    Vec2<float> position;
-    float angle;
-    float scale;
+    Vec2f GetPosition() const;
+    float GetAngleRad() const;
+    Vec2f GetScale() const;
+
+    void SetPosition(Vec2f position);
+    void SetAngle(float angle_rad);
+    void SetScale(Vec2f scale);
+
+private:
+    Vec2f _position;
+    float _angle_rad;
+    Vec2f _scale;
 
 };
 
