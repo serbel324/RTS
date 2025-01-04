@@ -1,5 +1,5 @@
-# Render Engine
-### Quickstart
+# RTS
+## Quickstart
 ```(bash)
 mkdir build
 cmake -B build .
@@ -8,5 +8,5 @@ make
 ./app/App 
 ```
 
-### Acknowledgements
+## Acknowledgements
 Powered by [SFML](https://github.com/SFML/SFML)
